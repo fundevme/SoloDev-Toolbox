@@ -1,7 +1,5 @@
-# SoloDev Toolbox 3.6.18
-<img width="2463" height="1275" alt="656543751-f2ebf4de-844f-464d-a95d-870940d46d70" src="https://github.com/user-attachments/assets/3176afa1-0bd5-4fe4-9db2-2787c1bc20ff" />
-<img width="2324" height="796" alt="{9BD1517C-865A-4E8E-9C9C-A8EE312C8BA9}" src="https://github.com/user-attachments/assets/18d5f553-da65-4adb-855d-f6a2ab6e155d" />
-<img width="2313" height="247" alt="{4E77A9DF-C396-4F1A-9F37-24C8D53B78E1}" src="https://github.com/user-attachments/assets/25886e39-9031-435a-8b25-647ef8e35e8c" />
+# SoloDev Toolbox 3.6.19
+<img width="1274" height="1050" alt="{8BE7BB76-5FB8-4CF2-9469-8310FF1F0785}" src="https://github.com/user-attachments/assets/cf4d6cd0-68c7-4570-8b46-b2ad01d06263" />
 
 **Plan the game. Then get better at everything it needs.**
 
@@ -10,7 +8,7 @@ for planning, designing, market research and launch; **Music**, **3DFoundry**,
 **2DCanvas** and **Story** for the skills that make the work actually good —
 plus **Pocket** versions of each for finishing something in a single day.
 
-No accounts, no ads, no telemetry. Available on Windows,Linux MacOS (ARM and x86) and Android. Download the up to date app and source files on the releases page.
+No accounts, no ads, no telemetry. Available on Windows and Android.
 
 ---
 
@@ -18,15 +16,50 @@ No accounts, no ads, no telemetry. Available on Windows,Linux MacOS (ARM and x86
 
 | File | What it is |
 | --- | --- |
-| `SoloDevToolbox-3.6.18-portable.exe` | Windows app. No install — double-click to run. |
-| `SoloDevToolbox-3.6.18.apk` | Android app. Sideload it (you will need to allow "Install unknown apps"). |
-| `SoloDevToolbox-3.6.18-source.zip` | The full source for this release: the web app, the Electron wrapper and the Android project. No `node_modules`, build output or binaries. |
+| `SoloDevToolbox-3.6.19-portable.exe` | Windows app. No install — double-click to run. |
+| `SoloDevToolbox-3.6.19.apk` | Android app. Sideload it (you will need to allow "Install unknown apps"). |
+| `SoloDevToolbox-3.6.19-source.zip` | The full source for this release: the web app, the Electron wrapper and the Android project. No `node_modules`, build output or binaries. |
 | `app/` | The full web app source. It also runs in any browser — just open `app/index.html`. |
 | `app/assets/brand/` | The editable SVG logos: the Toolbox app icon plus each module mark. |
 | `desktop-src/` | Electron wrapper source. Rebuild the EXE from here. |
 | `desktop-src/tools/export-icons.js` | Regenerates every icon file from the SVGs. |
 | `mobile-src/` | Capacitor Android project. Rebuild the APK from here (the signing key is included). |
 | `README.md` | This file. |
+
+---
+
+## What is new in 3.6.19
+
+**A long project title no longer runs off the side of a phone.**
+
+### Project names stay inside the screen
+
+The row of project chips at the top of Design, Market and Marketing grew with
+its content: a title like "Viscosity - (my self insert as slime with the hot
+robot shortstory)" stretched its chip past the screen edge and the text was
+simply cut off. A project chip is now clamped to the row and its title
+ellipsizes, with the full title still on the tooltip; the project buttons on
+Home and the market tag chips got the same treatment, and a very long
+unbroken word in any title now wraps instead of overflowing.
+
+### Two more overflow bugs found in the same sweep
+
+- The toolbox's discount-ladder table was the one table in the app not inside
+  the standard `.tbl-wrap` scroll container; on a narrow phone its four columns
+  pushed the whole page sideways instead of scrolling. It is wrapped like every
+  other table now.
+- On a phone the lesson section menu turns into a row of pills. A pill could
+  not shrink below its label, so a long section title stretched one past the
+  screen edge; the pills can now shrink and wrap their own label.
+
+### Smaller fixes
+
+- New smoke checks: `PROJECT_CHIPS` and `HOME_BUTTON` (a long title ellipsizes
+  and stays on screen), plus a 320px pass over the toolbox money page and the
+  3D lessons.
+- The web app changed (`app.css`, `core.js`, `views-home.js`, `views-learn.js`,
+  `views-market.js`, `views-toolbox.js`); the APK (versionCode 95) and the EXE
+  are rebuilt, and the macOS/Linux ports move to 3.6.19.
 
 ---
 
