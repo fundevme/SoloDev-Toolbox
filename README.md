@@ -1,4 +1,4 @@
-# SoloDev Toolbox 3.6.20
+# SoloDev Toolbox 3.6.21
 <img width="2463" height="1275" alt="656543751-f2ebf4de-844f-464d-a95d-870940d46d70" src="https://github.com/user-attachments/assets/3176afa1-0bd5-4fe4-9db2-2787c1bc20ff" />
 <img width="2324" height="796" alt="{9BD1517C-865A-4E8E-9C9C-A8EE312C8BA9}" src="https://github.com/user-attachments/assets/18d5f553-da65-4adb-855d-f6a2ab6e155d" />
 <img width="2313" height="247" alt="{4E77A9DF-C396-4F1A-9F37-24C8D53B78E1}" src="https://github.com/user-attachments/assets/25886e39-9031-435a-8b25-647ef8e35e8c" />
@@ -18,15 +18,54 @@ No accounts, no ads, no telemetry. Available on Windows and Android.
 
 | File | What it is |
 | --- | --- |
-| `SoloDevToolbox-3.6.20-portable.exe` | Windows app. No install — double-click to run. |
-| `SoloDevToolbox-3.6.20.apk` | Android app. Sideload it (you will need to allow "Install unknown apps"). |
-| `SoloDevToolbox-3.6.20-source.zip` | The full source for this release: the web app, the Electron wrapper and the Android project. No `node_modules`, build output or binaries. |
+| `SoloDevToolbox-3.6.21-portable.exe` | Windows app. No install — double-click to run. |
+| `SoloDevToolbox-3.6.21.apk` | Android app. Sideload it (you will need to allow "Install unknown apps"). |
+| `SoloDevToolbox-3.6.21-source.zip` | The full source for this release: the web app, the Electron wrapper and the Android project. No `node_modules`, build output or binaries. |
 | `app/` | The full web app source. It also runs in any browser — just open `app/index.html`. |
 | `app/assets/brand/` | The editable SVG logos: the Toolbox app icon plus each module mark. |
 | `desktop-src/` | Electron wrapper source. Rebuild the EXE from here. |
 | `desktop-src/tools/export-icons.js` | Regenerates every icon file from the SVGs. |
 | `mobile-src/` | Capacitor Android project. Rebuild the APK from here (the signing key is included). |
 | `README.md` | This file. |
+
+---
+
+## What is new in 3.6.21
+
+**A restore can no longer leave Android (or the PC) unable to scroll.**
+
+### The page lock cannot be taken twice
+
+The "Restore everything (.zip)" dialog locks the page while the job runs so a
+wheel or a touch cannot move the screen behind the progress bar. On Android a
+WebView sometimes delivers the file input's `change` event **twice for one
+file pick**. The second delivery started the same restore again: the busy lock
+was taken twice and released once, so the counter never came back to zero — the
+page stayed locked for the rest of the session. The same thing could happen on
+the PC by choosing a file again while the first import was still running, since
+the file field stayed usable behind the locked dialog.
+
+Both import dialogs ("Restore everything" and "Import files") now accept one
+file start only, and the file field is disabled as the job begins. A duplicate
+`change` is ignored.
+
+### A failed import offers a way out
+
+The dialogs also lock away their ✕ once a file is chosen. If the import ended
+in an error — a damaged zip, a file that is not a backup — the dialog showed
+the error but had **nothing left to press**: no ✕, no Done, and the page
+behind it still locked. The error result now carries a **Close** button, the
+page lock comes off the moment the job answers, and a throw before the job
+could start is caught the same way. The export dialogs got the same protection
+against an error before their packer answered.
+
+### Smaller fixes
+
+- New smoke check `IMPORT_LOCK`: a duplicate `change` starts one import, the
+  page scrolls again after Done, a failed restore offers Close, and the same
+  rules hold for the files-only import.
+- The web app changed (`views-vault.js`); the APK (versionCode 97) and the EXE
+  are rebuilt, and the macOS/Linux ports move to 3.6.21.
 
 ---
 
