@@ -1,7 +1,5 @@
-# SoloDev Toolbox 3.6.19
-<img width="2463" height="1275" alt="656543751-f2ebf4de-844f-464d-a95d-870940d46d70" src="https://github.com/user-attachments/assets/3176afa1-0bd5-4fe4-9db2-2787c1bc20ff" />
-<img width="2324" height="796" alt="{9BD1517C-865A-4E8E-9C9C-A8EE312C8BA9}" src="https://github.com/user-attachments/assets/18d5f553-da65-4adb-855d-f6a2ab6e155d" />
-<img width="2313" height="247" alt="{4E77A9DF-C396-4F1A-9F37-24C8D53B78E1}" src="https://github.com/user-attachments/assets/25886e39-9031-435a-8b25-647ef8e35e8c" />
+# SoloDev Toolbox 3.6.20
+<img width="1274" height="1050" alt="{8BE7BB76-5FB8-4CF2-9469-8310FF1F0785}" src="https://github.com/user-attachments/assets/cf4d6cd0-68c7-4570-8b46-b2ad01d06263" />
 
 **Plan the game. Then get better at everything it needs.**
 
@@ -18,15 +16,78 @@ No accounts, no ads, no telemetry. Available on Windows and Android.
 
 | File | What it is |
 | --- | --- |
-| `SoloDevToolbox-3.6.19-portable.exe` | Windows app. No install — double-click to run. |
-| `SoloDevToolbox-3.6.19.apk` | Android app. Sideload it (you will need to allow "Install unknown apps"). |
-| `SoloDevToolbox-3.6.19-source.zip` | The full source for this release: the web app, the Electron wrapper and the Android project. No `node_modules`, build output or binaries. |
+| `SoloDevToolbox-3.6.20-portable.exe` | Windows app. No install — double-click to run. |
+| `SoloDevToolbox-3.6.20.apk` | Android app. Sideload it (you will need to allow "Install unknown apps"). |
+| `SoloDevToolbox-3.6.20-source.zip` | The full source for this release: the web app, the Electron wrapper and the Android project. No `node_modules`, build output or binaries. |
 | `app/` | The full web app source. It also runs in any browser — just open `app/index.html`. |
 | `app/assets/brand/` | The editable SVG logos: the Toolbox app icon plus each module mark. |
 | `desktop-src/` | Electron wrapper source. Rebuild the EXE from here. |
 | `desktop-src/tools/export-icons.js` | Regenerates every icon file from the SVGs. |
 | `mobile-src/` | Capacitor Android project. Rebuild the APK from here (the signing key is included). |
 | `README.md` | This file. |
+
+---
+
+## What is new in 3.6.20
+
+**Deleting a picture from every board now deletes the picture, and a restored
+backup no longer grows the store past the zip it came from.**
+
+### The last board letting go lets the file go
+
+A stored picture, video or sound is only reachable through a moodboard, so when
+the last board stops pointing at it the file should go with the pointer. Three
+ways of letting go were leaving the bytes behind — invisible on every board,
+still counted in the "Stored files" badge, and still packed into the next
+export ("the export still has the pictures I deleted"):
+
+- **Deleting a project** removed the project and its moodboard from the data,
+  but never released the files only that moodboard held.
+- **"Delete everything"** cleared the written data but not the image store, so
+  every picture and video stayed on the device with nothing left to reach it.
+- **Restoring a backup** (the everything-zip or the data-only JSON) replaced
+  the boards but kept every file the *old* boards had held.
+
+There is now a sweep — `App.Images.prune` — that walks the store and deletes
+anything no board or pending preview points at. It runs after a restore, when a
+project is deleted, **before every export** (so a backup can never carry a
+deleted file), and once on boot. The boot sweep is what retires the files
+earlier builds already orphaned: the first launch after this update cleans them
+up, and the "Stored files" badge drops to the size of what is actually pinned.
+
+### The import tray goes with the board
+
+Clearing a moodboard while a "Ready to pin" preview was still waiting dropped
+the chip but left its file in the store; importing a second batch dropped the
+first batch's unpinned previews the same way. Both now delete the files those
+chips were the last owner of, and a file waiting in the tray is marked as in
+use so an export's sweep cannot take it.
+
+### A restored video is not stored a second time
+
+Files larger than 64MB were stored without a content fingerprint — hashing
+meant reading the whole file into memory, so the app deliberately skipped it.
+The catch: without a fingerprint the store could not recognise the file on the
+way back in, so **every restore stored every large video again**. Restore the
+same backup twice and a 4.79GB zip grew to 9GB with two copies of every large
+clip ("imported filesize is higher than the zip backup itself"). A large file
+now gets a fingerprint too: its byte size plus the SHA-256 of its first,
+middle and last megabyte, computed without ever holding the video in memory.
+Two real media files sharing a size and those three megabytes are the same
+file for every practical purpose, and the store stays exactly the size of the
+backup.
+
+### Smaller fixes
+
+- Deletes save their data synchronously: a tile removal and its file delete can
+  no longer be split by closing the app in the save debounce window.
+- New smoke check `STORE_LEAK` (deleting a project, clearing a board with a
+  preview, and the sweep's board/tray semantics), and a new `storage-cleanup`
+  block in verify (orphans, protection, export sweep, large-file dedupe).
+- The web app changed (`core.js`, `app.js`, `views-design.js`,
+  `views-modules.js`, `views-plan.js`, `views-vault.js`); the APK
+  (versionCode 96) and the EXE are rebuilt, and the macOS/Linux ports move to
+  3.6.20.
 
 ---
 
