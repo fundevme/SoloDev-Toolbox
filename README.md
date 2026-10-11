@@ -7,7 +7,7 @@ Plan the game. Build the skills it needs.
 
 SoloDev Toolbox brings together Studio (planning, design, market research and launch), Music, 3DFoundry, 2DCanvas and Story, plus Pocket tools for finishing something in a day. Core tools, reference material and learning guides run offline on your device. The AI writing assistant prepares prompts for any online assistant you choose; paste the response back to edit and use it. There are no ads or telemetry and no account is needed for the core app.
 
-The app is in English plus 14 bundled languages: French, German, Japanese, Simplified Chinese, Brazilian Portuguese, Russian, Ukrainian, Turkish, Hindi, Italian, European Portuguese, Spanish, Thai and Korean. You can change language in vault - settings.
+This app is avilable in English, Français, Deutsch, 日本語, 简体中文, Português (Brasil), Русский, Українська, Türkçe, हिन्दी, Italiano, Português (Portugal), Español, ไทย, and 한국어. You can change the language in vault - settings.
 
 Download the latest app and source files in the releases page.
 
@@ -55,7 +55,7 @@ Scrollbars are subtle, appear during movement and use the selected theme, with t
 
 ## Writing and offline languages
 
-English plus 14 bundled languages: French, German, Japanese, Simplified Chinese, Brazilian Portuguese, Russian, Ukrainian, Turkish, Hindi, Italian, European Portuguese, Spanish, Thai and Korean. The packs contain 13,225 catalogue entries each, including the new prompt controls. Guides, lessons, templates and descriptions translate offline; user writing and executable code stay unchanged. Translation credits are bundled in app/assets/locales/. Existing translated guide wording may benefit from native-speaker editing.
+English plus 14 bundled languages: French, German, Japanese, Simplified Chinese, Brazilian Portuguese, Russian, Ukrainian, Turkish, Hindi, Italian, European Portuguese, Spanish, Thai and Korean. The packs contain 13,225 catalogue entries each, including the new prompt controls. Guides, lessons, templates and descriptions translate offline; user writing and executable code stay unchanged. 
 
 ## Local data
 
