@@ -9,6 +9,8 @@ SoloDev Toolbox brings together Studio (planning, design, market research and la
 
 The app is in English plus 14 bundled languages: French, German, Japanese, Simplified Chinese, Brazilian Portuguese, Russian, Ukrainian, Turkish, Hindi, Italian, European Portuguese, Spanish, Thai and Korean. You can change language in vault - settings.
 
+Download the latest app and source files in the releases page.
+
 ## Release downloads
 
 | File | Platform |
