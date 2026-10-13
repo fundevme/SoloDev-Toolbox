@@ -20,10 +20,10 @@ Available on Windows,Linux MacOS (ARM and x86) and Android. Download the up to d
 | SoloDevToolbox-3.6.29-portable.exe | Windows x64, portable executable |
 | SoloDevToolbox-3.6.29.apk | Android 7.0+, signed update, versionCode 105 |
 | SoloDevToolbox-3.6.29-source.zip | Web, Electron, Android and port source |
-| SoloDevToolbox-3.6.28-linux-x64.tar.gz | Linux x64, portable folder (previous release) |
-| SoloDevToolbox-3.6.28-linux-x64.run | Linux x64, self-extracting launcher (previous release) |
-| SoloDevToolbox-3.6.28-mac-arm64.zip | macOS Apple silicon, standalone app (previous release) |
-| SoloDevToolbox-3.6.28-mac-x64.zip | macOS Intel, standalone app (previous release) |
+| SoloDevToolbox-3.6.29-linux-x64.tar.gz | Linux x64, portable folder |
+| SoloDevToolbox-3.6.29-linux-x64.run | Linux x64, self-extracting launcher|
+| SoloDevToolbox-3.6.29-mac-arm64.zip | macOS Apple silicon, standalone app |
+| SoloDevToolbox-3.6.29-mac-x64.zip | macOS Intel, standalone app |
 
 The Android, Windows and source releases are in the project root; the retained Linux/macOS 3.6.28 packages sit in their respective PortedApps/*/standalone folders until a Linux/macOS runtime cache is available to rebuild them. Previous releases are retained. Back up your projects in Vault before updating.
 
