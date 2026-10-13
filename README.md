@@ -1,12 +1,17 @@
 # SoloDev Toolbox 3.6.29
 
-**Plan the game. Build the skills it needs.**
 
 <img width="2463" height="1275" alt="656543751-f2ebf4de-844f-464d-a95d-870940d46d70" src="https://github.com/user-attachments/assets/3176afa1-0bd5-4fe4-9db2-2787c1bc20ff" />
 <img width="2324" height="796" alt="{9BD1517C-865A-4E8E-9C9C-A8EE312C8BA9}" src="https://github.com/user-attachments/assets/18d5f553-da65-4adb-855d-f6a2ab6e155d" />
 <img width="2313" height="247" alt="{4E77A9DF-C396-4F1A-9F37-24C8D53B78E1}" src="https://github.com/user-attachments/assets/25886e39-9031-435a-8b25-647ef8e35e8c" />
 
+**Plan the game. Then get better at everything it needs.**
+
 SoloDev Toolbox brings together Studio (planning, design, market research and launch), Music, 3DFoundry, 2DCanvas and Story, plus Pocket tools for finishing something in a day. Core tools, reference material and learning guides run offline on your device. The AI writing assistant prepares prompts for any online assistant you choose; paste the response back to edit and use it. There are no ads or telemetry and no account is needed for the core app.
+
+This app is avilable in English, Français, Deutsch, 日本語, 简体中文, Português (Brasil), Русский, Українська, Türkçe, हिन्दी, Italiano, Português (Portugal), Español, ไทย, and 한국어. You can change the language in vault - settings.
+
+Available on Windows,Linux MacOS (ARM and x86) and Android. Download the up to date app and source files on the releases page.
 
 ## Release downloads
 
