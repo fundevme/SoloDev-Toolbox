@@ -1,4 +1,4 @@
-# SoloDev Toolbox 3.6.29
+# SoloDev Toolbox 3.6.30
 
 
 <img width="2463" height="1275" alt="656543751-f2ebf4de-844f-464d-a95d-870940d46d70" src="https://github.com/user-attachments/assets/3176afa1-0bd5-4fe4-9db2-2787c1bc20ff" />
@@ -17,15 +17,27 @@ Available on Windows,Linux MacOS (ARM and x86) and Android. Download the up to d
 
 | File | Platform |
 | --- | --- |
-| SoloDevToolbox-3.6.29-portable.exe | Windows x64, portable executable |
-| SoloDevToolbox-3.6.29.apk | Android 7.0+, signed update, versionCode 105 |
-| SoloDevToolbox-3.6.29-source.zip | Web, Electron, Android and port source |
-| SoloDevToolbox-3.6.29-linux-x64.tar.gz | Linux x64, portable folder |
-| SoloDevToolbox-3.6.29-linux-x64.run | Linux x64, self-extracting launcher|
-| SoloDevToolbox-3.6.29-mac-arm64.zip | macOS Apple silicon, standalone app |
-| SoloDevToolbox-3.6.29-mac-x64.zip | macOS Intel, standalone app |
+| SoloDevToolbox-3.6.30-portable.exe | Windows x64, portable executable |
+| SoloDevToolbox-3.6.30.apk | Android 7.0+, signed update, versionCode 106 |
+| SoloDevToolbox-3.6.30-source.zip | Web, Electron, Android and port source |
+| SoloDevToolbox-3.6.30-linux-x64.tar.gz | Linux x64, portable folder |
+| SoloDevToolbox-3.6.30-linux-x64.run | Linux x64, self-extracting launcher|
+| SoloDevToolbox-3.6.30-mac-arm64.zip | macOS Apple silicon, standalone app |
+| SoloDevToolbox-3.6.30-mac-x64.zip | macOS Intel, standalone app |
 
-The Android, Windows and source releases are in the project root; the retained Linux/macOS 3.6.28 packages sit in their respective PortedApps/*/standalone folders until a Linux/macOS runtime cache is available to rebuild them. Previous releases are retained. Back up your projects in Vault before updating.
+The Android, Windows and source releases are in the project root. Linux/macOS packages are in their respective PortedApps/*/standalone folders. Older named release artifacts are moved to the Windows Recycle Bin after the replacement packages are verified. Back up your projects in Vault before updating.
+
+## Fixed in 3.6.30
+
+Android JSON restore now uses **Choose file…** to open the native document picker and reads the selected document URI directly. Backups can be selected even when Downloads, a file manager or a cloud provider labels JSON as plain text or a generic file. The chosen text appears in the editable restore box; **Restore this backup** applies it. Canceling preserves the current text. Empty, unreadable, oversized (over 32 MB) and malformed files are explained, and the same file can be picked again.
+
+Every Android export now opens the save picker with only the filename, type and size, then streams the file in 256 KB chunks. Previously, smaller exports put the entire base64 file in the picker call; Capacitor copied it into Android activity saved state when the picker opened, which could exceed Android's Binder limit and close the app. No file body enters saved activity state now. JSON, text, Markdown, CSV, ZIP, image and audio exports use the same path. Storage work runs on a single background worker, and success requires all expected bytes and a successful flush/close. Canceling or failing releases the save state; partial documents are deleted where the provider permits deletion. A missing native saver reports failure instead of navigating the WebView to a download URL. The app blocks overlapping saves and back navigation during an export.
+
+Desktop exports now write to a temporary file beside the chosen destination and replace the destination only after the full file is flushed and verified. A failed, canceled or incomplete export preserves an existing destination. The shared saver checks both rejected requests and returned failure results, so a failed final write cannot be announced as a successful save. Streams can be canceled and are released when the renderer closes, reloads or crashes. Windows, Linux and macOS wrappers share this implementation.
+
+The general scan also fixed a stale About version label, a reset that could clear media after settings persistence failed, and the debounced storage writer's stale echo state after a failed write. Malformed backup collection members are refused before replacing data. Android 7-compatible theme resources now keep API 27 navigation attributes in a version-qualified resource folder, the local SDK property is escaped correctly, and manifest permissions precede the application element.
+
+New regression checks exercise native Android plugins against Robolectric's Android framework and a test document provider, including byte-exact exports, saved-state size, document reads with missing metadata, Unicode, limits, permission failures, cancellation, duplicate pickers, incomplete files and retries. Real-filesystem desktop tests cover atomic replacement and cleanup. Renderer tests cover the Android bridge workflow and failed reset. Existing backup, archive, offline language, drafting, scroll, viewer and full app smoke checks remain included. Scroll tests now wait for actual scroll events instead of assuming a fixed rendering delay. All 13 validation groups passed, including seven native Android file tests, 22 desktop filesystem checks, 41 Android renderer checks, nine backup recovery cases, eleven archive cases and 185,220 offline catalogue checks. The rebuilt portable EXE was launched with an isolated profile and its embedded web/wrapper files matched canonical source. See **release-validation.json** for completed checks and platform limitations. Physical Android-device and native Linux/macOS launches have not been tested on this Windows host.
 
 ## Fixed in 3.6.29
 
@@ -71,7 +83,7 @@ Scrollbars are subtle, appear during movement and use the selected theme, with t
 
 ## Writing and offline languages
 
-English plus 14 bundled languages: French, German, Japanese, Simplified Chinese, Brazilian Portuguese, Russian, Ukrainian, Turkish, Hindi, Italian, European Portuguese, Spanish, Thai and Korean. The packs contain 13,225 catalogue entries each, including the new prompt controls. Guides, lessons, templates and descriptions translate offline; user writing and executable code stay unchanged. Translation credits are bundled in app/assets/locales/. Existing translated guide wording may benefit from native-speaker editing.
+English plus 14 bundled languages: French, German, Japanese, Simplified Chinese, Brazilian Portuguese, Russian, Ukrainian, Turkish, Hindi, Italian, European Portuguese, Spanish, Thai and Korean. The packs contain 13,230 catalogue entries each, including the new prompt controls. Guides, lessons, templates and descriptions translate offline; user writing and executable code stay unchanged. Translation credits are bundled in app/assets/locales/. Existing translated guide wording may benefit from native-speaker editing.
 
 ## Local data
 
@@ -88,8 +100,8 @@ Android: install the APK, allowing your file manager to install unknown apps if 
 Linux: extract the tar.gz and run "SoloDev Toolbox.sh", or use the single-file launcher:
 
 ```sh
-chmod +x SoloDevToolbox-3.6.28-linux-x64.run
-./SoloDevToolbox-3.6.28-linux-x64.run
+chmod +x SoloDevToolbox-3.6.30-linux-x64.run
+./SoloDevToolbox-3.6.30-linux-x64.run
 ```
 
 The .run launcher extracts to a versioned folder under ~/.local/share/solodev-toolbox. The portable folder includes install-desktop-entry.sh for an optional user-level application menu entry. A Linux desktop compatible with Electron 40 and its system libraries is required.
@@ -101,7 +113,7 @@ Linux and macOS packages were assembled on Windows from the official Electron 40
 ## Source layout
 
 - app/: canonical vanilla HTML/CSS/JavaScript app; open index.html to run it in a browser.
-- desktop-src/: Windows Electron shell, trusted clipboard/text-menu support (editor.js), build settings and tests.
+- desktop-src/: Windows Electron shell, trusted clipboard/text-menu support (editor.js), shared safe file writer (file-io.js), build settings and tests.
 - mobile-src/: Capacitor Android project. www/ and Android public assets mirror app/.
 - PortedApps/SoloDevToolbox-ported-linux/: Linux shell and standalone build script.
 - PortedApps/SoloDevToolbox-ported-mac/: macOS shell/menu and standalone build script.
@@ -142,7 +154,7 @@ cd android
 ./gradlew assembleRelease
 ```
 
-On Windows use gradlew.bat. Configure Android's local.properties with sdk.dir pointing at your own SDK, or set ANDROID_HOME. In the source ZIP, set SOLODEV_KEYSTORE to the absolute path to your keystore and set SOLODEV_STORE_PASSWORD, SOLODEV_KEY_ALIAS and SOLODEV_KEY_PASSWORD to sign a release. Without them, Gradle can build an unsigned release or a debug APK. Never commit signing secrets. Increment versionCode for future APK updates; this release uses 105 and versionName 3.6.29.
+On Windows use gradlew.bat. Configure Android's local.properties with sdk.dir pointing at your own SDK, or set ANDROID_HOME. In the source ZIP, set SOLODEV_KEYSTORE to the absolute path to your keystore and set SOLODEV_STORE_PASSWORD, SOLODEV_KEY_ALIAS and SOLODEV_KEY_PASSWORD to sign a release. Without them, Gradle can build an unsigned release or a debug APK. Never commit signing secrets. Increment versionCode for future APK updates; this release uses 106 and versionName 3.6.30.
 
 ## Validation
 
@@ -150,6 +162,7 @@ Manual draft tests cover custom prompts/context, clipboard insertion at selectio
 
 ```sh
 cd desktop-src
+npm run test:files
 npm run test:drafts
 npm run test:locales
 electron tools/locale-ui-test.js
@@ -159,6 +172,15 @@ electron tools/archive-integrity-test.js
 electron tools/verify.js
 npm run smoke
 ```
+
+Android native file-plugin tests and release lint:
+
+```sh
+cd mobile-src/android
+./gradlew :app:testDebugUnitTest :app:lintRelease
+```
+
+Use `gradlew.bat` on Windows. Tests use temporary data and a test document provider. Desktop shell/portable checks can use an explicit absolute `--user-data-dir=PATH` to isolate their profile; without that option, the established SoloDevStudio user-data folder is retained. Never run test restores against your live profile.
 
 On managed Windows hosts Electron tests may require --no-sandbox --disable-gpu --disable-gpu-sandbox --in-process-gpu. Release archive checks compare app/wrapper files with canonical source, Android version/signature metadata, executable modes and macOS symlinks. SHA256SUMS.txt lists release checksums. Native Linux/macOS launches and physical Android-device tests remain outstanding on this Windows host.
 
