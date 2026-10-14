@@ -1,6 +1,15 @@
 # SoloDev Toolbox 4.5.0
+<img width="2451" height="1425" alt="{105A0AA0-7A45-449A-A1C4-6C08609FC9BF}" src="https://github.com/user-attachments/assets/5feab7e3-1ff1-47cb-b76d-b9ebc574a0fb" />
+<img width="2366" height="1239" alt="{03F419F4-48D0-48E8-A685-C4A3370B86E0}" src="https://github.com/user-attachments/assets/1cd028a3-6b6e-405c-8288-89a333878e05" />
+<img width="2468" height="811" alt="{A204830D-CD67-409D-BD4A-E49817430B76}" src="https://github.com/user-attachments/assets/3043f2bb-a23a-4ed3-8558-d59569415b0a" />
 
-An offline creative workspace for planning a game and learning the skills to finish it.
+**An offline creative workspace for planning a game and learning the skills to finish it.**
+
+SoloDev Toolbox brings together Studio (planning, design, market research and launch), Music, 3DFoundry, 2DCanvas and Story, plus Pocket tools for finishing something in a day. Core tools, reference material and learning guides run offline on your device. The AI writing assistant prepares prompts for any online assistant you choose; paste the response back to edit and use it. There are no ads or telemetry and no account is needed for the core app.
+
+This app is avilable in English, Français, Deutsch, 日本語, 简体中文, Português (Brasil), Русский, Українська, Türkçe, हिन्दी, Italiano, Português (Portugal), Español, ไทย, and 한국어. You can change the language in vault - settings.
+
+Available on Windows,Linux MacOS (ARM and x86) and Android. Download the up to date app and source files on the releases page.
 
 
 ## Faster everyday access — 4.5.0
