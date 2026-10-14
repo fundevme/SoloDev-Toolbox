@@ -1,191 +1,122 @@
-# SoloDev Toolbox 3.6.30
+# SoloDev Toolbox 4.5.0
+
+An offline creative workspace for planning a game and learning the skills to finish it.
 
 
-<img width="2463" height="1275" alt="656543751-f2ebf4de-844f-464d-a95d-870940d46d70" src="https://github.com/user-attachments/assets/3176afa1-0bd5-4fe4-9db2-2787c1bc20ff" />
-<img width="2324" height="796" alt="{9BD1517C-865A-4E8E-9C9C-A8EE312C8BA9}" src="https://github.com/user-attachments/assets/18d5f553-da65-4adb-855d-f6a2ab6e155d" />
-<img width="2313" height="247" alt="{4E77A9DF-C396-4F1A-9F37-24C8D53B78E1}" src="https://github.com/user-attachments/assets/25886e39-9031-435a-8b25-647ef8e35e8c" />
+## Faster everyday access — 4.5.0
 
-**Plan the game. Then get better at everything it needs.**
+Studio Jump in now includes Learn, Saved lessons and Practice queue. Music, 3DFoundry, 2DCanvas and Story have matching cards in Go straight there, with saved lessons and queues filtered to that tool. These shortcuts also appear on a new Studio profile before a project exists. Every Pocket session home includes Learn, Saved lessons, Practice queue, Session brief, its calculator and Review journal, plus cards for all five main tools and all five Pocket tools. Existing Production links and the cover tool switcher remain available.
 
-SoloDev Toolbox brings together Studio (planning, design, market research and launch), Music, 3DFoundry, 2DCanvas and Story, plus Pocket tools for finishing something in a day. Core tools, reference material and learning guides run offline on your device. The AI writing assistant prepares prompts for any online assistant you choose; paste the response back to edit and use it. There are no ads or telemetry and no account is needed for the core app.
+Startup reveals Start working as soon as real boot work completes after a short 200 ms minimum. The existing loading and page animations, tool hover/press effects, themes, media, offline operation and v2 storage remain in place. Scripts defer until HTML is parsed. Tool switching presents its page before the optional recent-tools write; pending preferences flush before edits, navigation, backup/export and page exit. Failed preference writes restore the previous state.
 
-This app is avilable in English, Français, Deutsch, 日本語, 简体中文, Português (Brasil), Русский, Українська, Türkçe, हिन्दी, Italiano, Português (Portugal), Español, ไทย, and 한국어. You can change the language in vault - settings.
+Translated incremental updates process only changed regions. Translation caches and diagnostic samples are bounded, previous-language compiled caches are released, and small translated updates no longer rescan the whole document. Sidebar elements are reused when their contents are unchanged. Pocket timer listeners, practice painters and day-plan intervals release discarded pages immediately while running timers continue. Idle rhythm playback suspends its audio context. Desktop/browser viewport polling is removed; Android retains a background-aware fallback.
 
-Available on Windows,Linux MacOS (ARM and x86) and Android. Download the up to date app and source files on the releases page.
+The bug sweep also makes Home actions native keyboard controls, adds visible card focus and touch handling, restores the previous language after a failed settings write, and makes the requested shortcuts available without a project. No existing tool or animation has been removed. See `docs/UI-4.5-VERIFICATION.md` and `release-validation.json` for measured performance, checks and remaining native-testing limits.
 
-## Release downloads
+The release includes Windows setup/portable, Android APK, Linux x64 tar.gz/.run, Apple silicon/Intel macOS ZIPs and the complete source ZIP. Android retains `com.solodev.studio`, the signing identity and the v2 storage schema, with versionCode **113**. Older named release packages are removed after package and runtime verification.
 
-| File | Platform |
-| --- | --- |
-| SoloDevToolbox-3.6.30-portable.exe | Windows x64, portable executable |
-| SoloDevToolbox-3.6.30.apk | Android 7.0+, signed update, versionCode 106 |
-| SoloDevToolbox-3.6.30-source.zip | Web, Electron, Android and port source |
-| SoloDevToolbox-3.6.30-linux-x64.tar.gz | Linux x64, portable folder |
-| SoloDevToolbox-3.6.30-linux-x64.run | Linux x64, self-extracting launcher|
-| SoloDevToolbox-3.6.30-mac-arm64.zip | macOS Apple silicon, standalone app |
-| SoloDevToolbox-3.6.30-mac-x64.zip | macOS Intel, standalone app |
+## Learning, practice and responsive cover — 4.4.0
 
-The Android, Windows and source releases are in the project root. Linux/macOS packages are in their respective PortedApps/*/standalone folders. Older named release artifacts are moved to the Windows Recycle Bin after the replacement packages are verified. Back up your projects in Vault before updating.
+The cover's six main tools are single clickable tiles with no smaller buttons inside. Mouse hover lifts each tile and animates its mark; Studio has the stronger response. Keyboard focus and touch/press states are visible, and system/app reduced-motion settings suppress the motion. Favourites are managed from a separate cover control, and the favourites/recent list refreshes immediately.
 
-## Fixed in 3.6.30
+Studio Learn removes the guide-position dropdown while keeping all four guide choices above the reading. Save individual guide sections or creative-tool lesson sections to Saved lessons. Open a saved entry directly at the matching lesson, filter by tool, remove bookmarks or export the list as Markdown.
 
-Android JSON restore now uses **Choose file…** to open the native document picker and reads the selected document URI directly. Backups can be selected even when Downloads, a file manager or a cloud provider labels JSON as plain text or a generic file. The chosen text appears in the editable restore box; **Restore this backup** applies it. Canceling preserves the current text. Empty, unreadable, oversized (over 32 MB) and malformed files are explained, and the same file can be picked again.
+Practice queue collects lesson sections and individual exercises. Reorder them, keep saved practice notes, open the exact lesson or its Pocket timer, mark exercises done or reopen them, and export the queue. Completing a queued exercise updates the existing tool's exercise progress. Completed items can be shown or hidden. Bookmarks and queue data are additive `settings.learningDesk` in the existing v2 store, survive restart and JSON/full-ZIP backups, and preserve unreadable optional data for recovery. Lists are bounded at 500 saved lessons and 200 practice entries.
 
-Every Android export now opens the save picker with only the filename, type and size, then streams the file in 256 KB chunks. Previously, smaller exports put the entire base64 file in the picker call; Capacitor copied it into Android activity saved state when the picker opened, which could exceed Android's Binder limit and close the app. No file body enters saved activity state now. JSON, text, Markdown, CSV, ZIP, image and audio exports use the same path. Storage work runs on a single background worker, and success requires all expected bytes and a successful flush/close. Canceling or failing releases the save state; partial documents are deleted where the provider permits deletion. A missing native saver reports failure instead of navigating the WebView to a download URL. The app blocks overlapping saves and back navigation during an export.
+The bug sweep fixes failed-save rollback for lesson exercise completion, stale cover favourites, and module section URLs that previously ignored the requested lesson. Queue/order/progress writes also roll back on failure. New UI text is bundled in all fourteen non-English packs; translations remain drafts needing native-speaker review.
 
-Desktop exports now write to a temporary file beside the chosen destination and replace the destination only after the full file is flushed and verified. A failed, canceled or incomplete export preserves an existing destination. The shared saver checks both rejected requests and returned failure results, so a failed final write cannot be announced as a successful save. Streams can be canceled and are released when the renderer closes, reloads or crashes. Windows, Linux and macOS wrappers share this implementation.
+Windows setup/portable, Android, Linux, macOS and source packages are rebuilt as 4.4.0. Android versionCode is **112**, using the existing application identity and certificate. Old release packages are removed only after the new packages pass parity, integrity and runtime checks. See `docs/UI-4.4-VERIFICATION.md`, `release-validation.json` and `cleanup-report.json` for actual results and native-testing limits.
 
-The general scan also fixed a stale About version label, a reset that could clear media after settings persistence failed, and the debounced storage writer's stale echo state after a failed write. Malformed backup collection members are refused before replacing data. Android 7-compatible theme resources now keep API 27 navigation attributes in a version-qualified resource folder, the local SDK property is escaped correctly, and manifest permissions precede the application element.
+## Production tools and Learn layout — 4.3.0
 
-New regression checks exercise native Android plugins against Robolectric's Android framework and a test document provider, including byte-exact exports, saved-state size, document reads with missing metadata, Unicode, limits, permission failures, cancellation, duplicate pickers, incomplete files and retries. Real-filesystem desktop tests cover atomic replacement and cleanup. Renderer tests cover the Android bridge workflow and failed reset. Existing backup, archive, offline language, drafting, scroll, viewer and full app smoke checks remain included. Scroll tests now wait for actual scroll events instead of assuming a fixed rendering delay. All 13 validation groups passed, including seven native Android file tests, 22 desktop filesystem checks, 41 Android renderer checks, nine backup recovery cases, eleven archive cases and 185,220 offline catalogue checks. The rebuilt portable EXE was launched with an isolated profile and its embedded web/wrapper files matched canonical source. See **release-validation.json** for completed checks and platform limitations. Physical Android-device and native Linux/macOS launches have not been tested on this Windows host.
+Studio Learn removes the project picker, project filters and learning-path search strip. The practical cards, including First playable prototype and 3D modelling fundamentals, follow the written guides at the bottom. Guide navigation stays above the reading; its former layout selector was removed in 4.4.0. Music, 3DFoundry, 2DCanvas and Story keep lesson navigation beside the reading on wide screens and above it on compact screens, with an independently scrolling lesson list. The lesson-position dropdown is removed; selecting a lesson retains the list position. Their practical introductions follow the curriculum. Header buttons keep their full borders on hover, and keyboard focus remains visible inside the compact controls.
 
-## Fixed in 3.6.29
+Each main creative tool now has a saved production desk: Studio capacity and contingency, 2DCanvas image sizing and memory, Music beat/bar/delay timing, 3DFoundry texture memory with mipmaps, and Story reading time and scene pacing. Desks include editable deliverable briefs, review checks and Markdown export. Market has a player research brief, Marketing has a launch budget scenario desk, Toolbox/Build have an asset naming and manifest desk, and Vault has a written-data/media inventory. Studio Home includes Production planner, Player research brief, Launch budget desk and Asset naming desk in Jump in. All four creative tool homes and all five Pocket homes include their production shortcuts. Existing workflows link to the relevant tools. Project navigation stays in one scrolling column without clipped labels, Scope totals have separate labels and values, and Scope inputs reject invalid ranges and restore the previous field on failed saves.
 
-Restoring a written (.json) backup no longer fails with the JSON parser's raw message. An empty or half-written backup file — the case behind the reported "Unexpected end of JSON input" — is now named for what it is: choosing a 0-byte file says "That file is empty — pick a different backup.", pressing Restore with nothing chosen or pasted says "Choose a backup file or paste its text first.", malformed text says it is "not valid JSON", and a valid JSON file that is not a SoloDev Toolbox backup is refused as before. The restore dialog stays open on every one of these, so the reader can pick the right file without reopening it.
+All five Pocket tools have three extra pages: Session brief, a tool-specific calculator, and Review journal. Briefs, checks, calculator values and unfinished review drafts survive navigation and restart. Journals retain the latest 100 entries and export Markdown. Asset names handle reserved Windows names, invalid filename characters and case-insensitive collisions without renaming source files. Blank/out-of-range inputs show feedback; failed saves restore stored values and checklist/layout controls. Unreadable optional tool data is preserved and offers backup recovery.
 
-Choosing the same file twice now always re-reads it: the file control is cleared after each pick, so a second attempt with the same backup fires the change event again. Reading failures are reported instead of silently doing nothing.
+The new desks use additive `settings.v43` under the existing v2 storage schema. Desktop `SoloDevStudio` data and Android `com.solodev.studio` identities remain unchanged. Android versionCode is **111**. See `docs/UI-4.3-VERIFICATION.md` and `release-validation.json` for release checks and native-testing limits. New offline translations are machine drafts requiring human review.
 
-On the desktop app, "Choose file…" now opens the shell's own native open dialog in the Electron main process — the same path the export dialogs already use — instead of the renderer's built-in file control, whose file-chooser pipeline can stop answering on machines where the GPU/utility processes keep crashing. A browser and the Android WebView keep their native file picker. The chosen text still lands in the same editable box, and Restore behaves identically on every platform.
+## Familiar homes and focused workspaces — 4.2.0
 
-Saving is verified end to end. The desktop shell refuses an export that produced no data before the save dialog even opens, and a save that claims success must leave the whole file on disk: after writing, the byte count is read back and compared, and a short or empty file is removed and reported as a failure instead of being left behind as a damaged "backup". Chunked saves of large zips carry the expected size with them and are checked the same way at the end. The browser/Android save paths are unchanged.
+Studio Home again opens with the greeting, project continuation and practice cards. The expanded Project page contains Today, Tasks, Scope, Playtests, Decisions, Assets, Connections, Release, Accessibility, Game jam, Presentation and Organisation. The game-jam desk adds a playable goal, rules, credits, submission link, deadline status and a saved five-step submission checklist. Repeatedly adding the jam workflow does not duplicate tasks.
 
-A test-harness bug in the offline locale UI check was also fixed: its screenshot step returned a DOM object over IPC, which failed an otherwise green run. It now exits 0.
+The composition lab, rhythm desk, blockout workshop and Story writing desk now have dedicated pages under each tool’s navigation. Home pages retain learning progress, practice, designs and links to every tool. Each desk has its own illustrated introduction and return links. Story removes Lite/Full throughout its writing desk and keeps scene goals and turns available, with live word/character counts. Studio Home and Learn have no Lite/Full selector.
 
-Validation for 3.6.29 adds restore-dialog checks to tools/verify.js: the desktop shell picker button (no renderer file control), the empty-restore explanation, malformed JSON and non-backup objects naming their real problem (never the parser's "Unexpected end of JSON input"), the shell picker filling the box, a successful restore closing the dialog and replacing the projects, plus the browser-side path with a 0-byte file, a valid file, and the file control resetting so the same file can be picked again. Save verification is covered by the existing format/dedupe/round-trip and smoke suites.
+The cover restores “What are you making today?” and the familiar colourful tool cards, including project/exercise facts, while retaining search, project continuation, favourites, recent tools, backups, settings, the tour, Pocket tools and direct links to the new desks. Logos and workflow illustrations use the warm app palette. Composition and rhythm illustrations load locally, idle “Ready to explore” text and redundant library headings are removed, and the guide reads “Your playable game”. Selecting a learning section returns to the top while ordinary refreshes preserve the reading position.
 
-## Fixed in 3.6.28
+Compact windows use the drawer without the bottom navigation strip. The top header keeps one row whenever its actual translated content fits; it adds an action row only when necessary, and returns to one row after a resize or language change. All 15 languages were checked at five viewport widths. The sweep also fixes small-text contrast and the selected Project-tab colours in dark mode.
 
-Removed the leftover Connect AI button in Language settings and the AI draft button beside the personal/studio name setting. AI drafts remain on project writing and Vault notes.
+See `docs/UI-4.2-VERIFICATION.md` and `release-validation.json` for checks and remaining native testing. Existing v2 data and desktop/Android application identities are preserved. Android versionCode is **110**. Cloud and integrated AI features remain deferred; manual AI drafting is retained.
 
-Scrollbars use a subtle 3-pixel thumb in desktop/Android Chromium. They appear only when their own content scrolls, then disappear 500ms after motion stops. Tracks and corners stay transparent, and arrow buttons are absent. Firefox uses its supported thin scrollbar. Modal scrolling does not reveal a scrollbar on the blurred page behind it. The previous permanently visible thick rail is removed, including the viewer-note exception.
+## UI and bug-fix release — 4.1.1
 
-The slim page rail keeps its width during viewer/dialog scroll locks, preventing content reflow and preserving the reader's position.
+The 3.6.30 logos, warm themes and typography are restored while keeping the local suite features. Tool banners/modes stay on home pages; existing tools are visible; Vault is beside AI; the compact header places the bold page label beside the active tool name on one row. Version labels, project-filter context, refresh scrolling, malformed preferences and repeated translations are fixed. See docs/UI-4.1.1-VERIFICATION.md and release-validation.json for actual results and untested native/manual work. Android versionCode is 109.
 
-Dialogs now have an outer rounded frame that clips the inner scroll viewport and its scrollbar. The scrollbar cannot extend below the dialog or past its rounded corners. Long content still scrolls to its final controls, and nested dialogs retain their page lock.
+## Local suite upgrade — 4.1.0
 
-The loading screen is fixed and cannot scroll. Both the splash and underlying document are locked, and the workspace is inert until handover, preventing duplicate scrollbars and accidental background focus. Loading content fits the available viewport and updates after resizing or text/font changes. Compact layouts reduce spacing while keeping the progress, status and Start working button visible. Locks and listeners are removed after handover.
+The current source now opens 2DCanvas into a live composition study with PNG export, and Music into an audible sixteen-step drum desk with WAV export. Each has a distinct working layout, remembered Lite/Full visibility, illustrated practical activities and inspectable examples. Existing lessons, designs, practice, references, song maps and tools remain reachable. Mode switches keep editing nodes, notes and advanced settings intact. Saved studies use additive `modules.canvas.workspace` / `modules.music.workspace` metadata under the existing v2 storage key.
 
-Validation includes five desktop/phone/landscape viewport sizes, loading wheel/key locks and fit, modal frame bounds, transient scrollbar appearance/hiding, final-control reachability and nested dialog locks. Existing manual draft, backup recovery, archive integrity, offline language/guide, renderer and full smoke checks remain included.
+See `docs/NEXT-STAGE-PILOTS.md` for the framework comparison, actual checks and remaining work. Run `npm run test:workspaces` in `desktop-src`; `node tools/workspaces-browser-test.js` checks installed Chrome and Edge. All tests use isolated profiles.
 
-## Manual AI writing workflow
+The 4.1.0 release includes the Studio, 3DFoundry, Story and Learn redesigns, the local handoff feature backlog, all fourteen offline non-English packs, and fresh Windows setup/portable, Android, Linux and macOS packages. See docs/SUITE-4.1-VERIFICATION.md for the actual evidence and remaining native/manual checks. New translations are machine drafts and require native-speaker review. Cloud sync, collaboration and integrated AI are deferred by user choice.
 
-AI writing now uses a manual copy-and-paste workflow on every platform. Provider connections, API credentials, OAuth, model settings, automatic generation and desktop AI launch integrations have been removed from the app and distributed source.
+Version 4 brings a new workspace hub, a consistent design across Studio, Music, 3DFoundry, 2DCanvas, Story, Pocket tools and Vault, guided project creation, searchable tools and project content, and clearer access to advanced features.
 
-1. Open **AI** in the toolbar or **AI draft** beside a field, including character Name, Role and Character arc.
-2. Write what you want the assistant to produce. Edit **Project context**, or untick it to leave it out. The read-only **Prompt** shows exactly what will be copied.
-3. Press **Copy prompt** and paste it into ChatGPT or any other online assistant yourself.
-4. Paste the response into **Generated draft**, directly or with **Paste draft**. Cut, copy, paste and edit normally with keyboard shortcuts or the native text menu. The Paste draft button inserts at the cursor or replaces the selection.
-5. **Insert/Replace field** or **Append to field** applies the draft to the field you opened. **Save as quick note** saves the edited draft and its title in Vault → Notes without changing the field. The toolbar assistant saves notes without a field target.
+## What changed
 
-Field insertion protects edits made while the dialog was open and refuses a detached field or changed route. Clipboard permissions denied in a browser fall back to selecting the prompt or focusing the draft for normal keyboard/text-menu editing. A note is reported saved only after storage succeeds; failed saves roll back, and repeated clicks do not create duplicate notes.
+- A new identity, scalable section icons, local workflow illustrations, readable Paper/Light/Dark themes, consistent controls and restrained transitions.
+- A workspace hub with direct project continuation, all creative tools, favourites, recent tools, backups and settings.
+- Project creation starts with a working title and optional notes. Choose a two-week prototype, short story game, one-day game or blank project. Price (including free), production category, duration, codename and target month remain under Advanced options.
+- Starter projects create editable tasks and real milestones. Blank projects remain empty. Creation opens the saved project and only reports success after persistence succeeds.
+- Studio Home adds a guide to pitch, core loop, character and first milestone, an overview and quick task/milestone creation. Existing practice tracking, hours, ideas and planning remain available.
+- Search tools, projects, tasks, milestones, characters, design concepts and Vault notes. Open character/design results directly in the relevant document section. Filter results, use arrow keys, or search in your selected language. Results are capped at 50 for responsiveness.
+- Ctrl/Cmd+K opens search; Ctrl/Cmd+Shift+N opens a project. Both respect active dialogs and busy operations. The tour can be skipped and replayed at any time.
+- Project-list search and active-project filtering. Core design sections appear first; further sections remain under Advanced options. Calculator assumptions are expandable in Settings.
+- Accessible form labels, keyboard cards/checks, named dialogs, focus containment, visible focus, larger controls and a readable two-row mobile hours chart. Motion follows the system preference. Browser zoom is enabled.
+- Save status acknowledges actual writes. A failed debounced save cannot be followed by a success toast. Pending field edits are flushed before navigation/export/page exit. Failed new operations roll back.
+- Unreadable saved metadata is preserved and protected against automatic writes or media pruning until explicit restoration or reset. Valid existing projects use the same storage key and v2 data schema; application version 4.0.0 does not require a schema migration.
 
-Scrollbars are subtle, appear during movement and use the selected theme, with transparent tracks. The blurred page stays locked while a dialog is open, while the active dialog remains scrollable. Backup recovery and strict ZIP/manifest validation from 3.6.25 are retained; damaged IndexedDB storage can use an independent recovery database or OPFS without deleting the originals. Failed imports leave existing project metadata unchanged.
+No useful tool was removed. Advanced GDD sections, calculators, build tools, practice desks, timers, learning resources, media boards, printing, imports and exports remain available. AI drafting keeps the manual copy/paste workflow. There is no account requirement, analytics, advertisement, new cloud dependency or AI API integration.
 
-## Writing and offline languages
+## Languages and local assets
 
-English plus 14 bundled languages: French, German, Japanese, Simplified Chinese, Brazilian Portuguese, Russian, Ukrainian, Turkish, Hindi, Italian, European Portuguese, Spanish, Thai and Korean. The packs contain 13,230 catalogue entries each, including the new prompt controls. Guides, lessons, templates and descriptions translate offline; user writing and executable code stay unchanged. Translation credits are bundled in app/assets/locales/. Existing translated guide wording may benefit from native-speaker editing.
+English plus French, German, Japanese, Simplified Chinese, Brazilian Portuguese, Russian, Ukrainian, Turkish, Hindi, Italian, European Portuguese, Spanish, Thai and Korean remain bundled offline. New text uses the existing catalogue. Native-speaker review remains outstanding; automated checks establish coverage and preservation, not translation quality.
 
-## Local data
+Lucide icons are bundled with their full ISC/MIT notices and source manifest in `app/assets/illustrations/icons`. Original SVG branding and workflow compositions are local. The application does not fetch the new imagery from the internet.
 
-The app makes no AI provider requests and does not manage AI accounts or credentials. Copying a prompt only writes to your clipboard. You choose where to paste and send it. Old local encrypted connection files are no longer read by the app. Project backups contain project data, saved notes and media, excluding former provider credential files.
+## Data and updates
 
-Project data stays on this device. Use Vault's backup/export tools to move it between devices. Save-as, printing, native fullscreen and the graphics fallback remain available in desktop wrappers.
+The desktop data directory remains `SoloDevStudio`; Android keeps application ID `com.solodev.studio` and increments versionCode to **113**. No personal profile was used by the implementation tests. Old release packages are removed after the latest packages pass verification. Export a full Vault ZIP when you want a transferable copy of projects and media; JSON contains the written project data.
 
-## Running the releases
+The Android release must use the existing private signing key for an in-place update. Source packages exclude private signing material and local SDK configuration. Keep signing keys private. The source ZIP uses environment variables for signing credentials.
 
-Windows: close the existing app, then run the new portable EXE. The desktop app allows one running instance; launching an update while the old version is still open focuses the old window.
+## Release verification
 
-Android: install the APK, allowing your file manager to install unknown apps if needed. It uses the existing release certificate and application ID com.solodev.studio so it can update the previous signed APK without changing app data. A device with a differently signed build requires its matching key for an in-place update.
+See `docs/V4-VERIFICATION.md`, `docs/V4-REQUIREMENT-MATRIX.md` and `release-validation.json` for the actual evidence and limitations. Linux/macOS native launches, a physical Android update/install and human usability/assistive-technology studies require further verification. A successful package build alone does not establish native correctness.
 
-Linux: extract the tar.gz and run "SoloDev Toolbox.sh", or use the single-file launcher:
+Historical 3.6.30 release notes are preserved in `docs/release-3.6.30.md`.
 
-```sh
-chmod +x SoloDevToolbox-3.6.30-linux-x64.run
-./SoloDevToolbox-3.6.30-linux-x64.run
-```
+## Run or rebuild
 
-The .run launcher extracts to a versioned folder under ~/.local/share/solodev-toolbox. The portable folder includes install-desktop-entry.sh for an optional user-level application menu entry. A Linux desktop compatible with Electron 40 and its system libraries is required.
+Web: serve `app/` locally or open `app/index.html`. Desktop: install dependencies in `desktop-src`, then `npm start`. The Windows portable executable is `SoloDevToolbox-4.5.0-portable.exe`.
 
-macOS: unzip the archive for your architecture. The app is unsigned and not notarized. Review the bundled first-launch helper before using it: Start SoloDev Toolbox.command removes the quarantine attribute from this app and opens it. You can also use macOS's available Open/Privacy & Security controls for a trusted unsigned app. Once allowed, open SoloDev Toolbox.app normally; it can be moved to Applications. These packages require a macOS version supported by Electron 40 (macOS 12 or later).
+Before packaging, run `node desktop-src/tools/sync-app.js`; `--check` verifies byte parity without copying. It mirrors canonical `app/` into Windows, Android www/public, Linux and macOS wrappers without opening user profiles.
 
-Linux and macOS packages were assembled on Windows from the official Electron 40.10.2 runtimes, preserving executable permissions and macOS framework symlinks. Their archive payloads were verified, but native launches on Linux/macOS and physical-device Android testing were not performed during this release.
+Windows: `npm run dist` in `desktop-src` (Node 22+). Android: JDK 21 and Android SDK 35/36; run `gradlew :app:testDebugUnitTest :app:assembleRelease` in `mobile-src/android`. Linux/macOS standalone builders are `PortedApps/*/tools/make-standalone.py`; both read version 4.5.0 from their package metadata and use Electron 40.10.2.
 
-## Source layout
+Useful checks in `desktop-src`:
 
-- app/: canonical vanilla HTML/CSS/JavaScript app; open index.html to run it in a browser.
-- desktop-src/: Windows Electron shell, trusted clipboard/text-menu support (editor.js), shared safe file writer (file-io.js), build settings and tests.
-- mobile-src/: Capacitor Android project. www/ and Android public assets mirror app/.
-- PortedApps/SoloDevToolbox-ported-linux/: Linux shell and standalone build script.
-- PortedApps/SoloDevToolbox-ported-mac/: macOS shell/menu and standalone build script.
-- app/assets/locales/: offline language packs, manifest, catalogue and credits.
-- app/assets/brand/: editable SVG branding and exported icons.
-- pastprompt.txt: current maintainer handover and release notes.
-
-The source ZIP excludes dependencies, generated builds, old release binaries, local SDK paths, credentials, user data and private signing keys. Its Android signing settings use environment variables. The existing private signing key remains in the local project; do not publish it. A fresh signing key produces a separately signed app and cannot update the existing release in place.
-
-## Rebuild
-
-Use Node.js 22+, npm, Python 3.8+ for standalone scripts, and JDK 21 with Android SDK platforms 35/36 and build-tools 35.0.0 for Android. npm install restores dependencies. Keep all platform web copies synchronized with app/ before building.
-
-Windows:
-
-```sh
-cd desktop-src
-npm install
-npm run dist
-```
-
-Linux/macOS standalone archives can be assembled on any OS using Python. The scripts download and cache the official Electron runtime on the first run:
-
-```sh
-python PortedApps/SoloDevToolbox-ported-linux/tools/make-standalone.py
-python PortedApps/SoloDevToolbox-ported-mac/tools/make-standalone.py
-```
-
-Outputs go to each port's standalone/ directory. --out DIR and --cache DIR override these locations; the macOS script also accepts --arch arm64 or --arch x64. Native Linux installer targets (AppImage/deb) need a Linux build environment. Signed/notarized macOS DMG releases need macOS and Apple signing credentials.
-
-Android:
-
-```sh
-cd mobile-src
-npm install
-npx cap sync android
-cd android
-./gradlew assembleRelease
-```
-
-On Windows use gradlew.bat. Configure Android's local.properties with sdk.dir pointing at your own SDK, or set ANDROID_HOME. In the source ZIP, set SOLODEV_KEYSTORE to the absolute path to your keystore and set SOLODEV_STORE_PASSWORD, SOLODEV_KEY_ALIAS and SOLODEV_KEY_PASSWORD to sign a release. Without them, Gradle can build an unsigned release or a debug APK. Never commit signing secrets. Increment versionCode for future APK updates; this release uses 106 and versionName 3.6.30.
-
-## Validation
-
-Manual draft tests cover custom prompts/context, clipboard insertion at selection, editable drafts, native cut/copy/paste, persistent Vault notes, duplicate and failed saves, guarded field insertion, themed scrollbars and background scroll locking. A second desktop window is denied clipboard IPC. The renderer suite now also drives the backup restore dialog on both the desktop shell picker and the browser file control (empty text, empty file, malformed JSON, non-backup JSON, successful replace, control reset). Offline locale/guide, backup recovery, malformed archive, renderer regression and full smoke checks also run against isolated data. The locale UI check exits 0 once its screenshot step is done.
-
-```sh
-cd desktop-src
+```text
+npm run test:v4
+npm run test:regression
 npm run test:files
-npm run test:drafts
 npm run test:locales
-electron tools/locale-ui-test.js
-electron tools/scroll-layout-test.js
-electron tools/backup-recovery-test.js
-electron tools/archive-integrity-test.js
-electron tools/verify.js
+npm run test:drafts
 npm run smoke
 ```
 
-Android native file-plugin tests and release lint:
+The optional accessibility harness uses axe-core from the path in `SOLODEV_AXE_SOURCE`; it is a development test dependency, not shipped runtime code. `SOLODEV_TEST_OUTPUT` selects an isolated evidence directory. Tests use their own profiles and fixtures. Cross-version backup fixtures were exported by the captured original 3.6.30 code.
 
-```sh
-cd mobile-src/android
-./gradlew :app:testDebugUnitTest :app:lintRelease
-```
+macOS packages are unsigned and not notarized. The bundled first-launch helper and existing platform instructions remain in each archive. Linux archives preserve executable permissions; macOS archives preserve framework symlinks.
 
-Use `gradlew.bat` on Windows. Tests use temporary data and a test document provider. Desktop shell/portable checks can use an explicit absolute `--user-data-dir=PATH` to isolate their profile; without that option, the established SoloDevStudio user-data folder is retained. Never run test restores against your live profile.
-
-On managed Windows hosts Electron tests may require --no-sandbox --disable-gpu --disable-gpu-sandbox --in-process-gpu. Release archive checks compare app/wrapper files with canonical source, Android version/signature metadata, executable modes and macOS symlinks. SHA256SUMS.txt lists release checksums. Native Linux/macOS launches and physical Android-device tests remain outstanding on this Windows host.
-
-The Electron smoke test paints its window off-screen and waits for rendering frames before measuring the reading-position tile, avoiding stale geometry on a never-shown surface.
-
-
-
-Viewer opening cancels an in-flight smooth page scroll and corrects its queued compositor frame before the image appears. Automatic scroll anchoring is paused for the viewer and restored on close. tools/viewer-freeze-test.js verifies that the background offset equals the saved reading position.
